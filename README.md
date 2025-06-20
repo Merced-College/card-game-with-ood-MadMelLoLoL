@@ -103,4 +103,35 @@
             }
 
         - Comments on default code and new code explaining what they do
-        
+
+        -Added three of a kind function and print it:
+            System.out.println("Three of a kind is " + checkFor3Kind());
+            .
+            .
+            .
+            //check for 3 of a kind in the players hand
+            public static boolean checkFor3Kind() {
+                for (int i = 0; i < playerCards.size(); i++) {
+                    int count = 1;
+                    Card current = playerCards.get(i);
+                    for (int j = 0; j < playerCards.size(); j++) {
+                        if (i != j && current.getRank().equals(playerCards.get(j).getRank())) {
+                            count++;
+                        }
+                    }
+                    if (count == 3) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+        -Added a total value for Player's hand function and print for it:
+            //get players hand value
+            public static int getPlayerHandValue() {
+                int total = 0;
+                for (Card c : playerCards) {
+                    total += c.getValue();
+                }
+                return total;
+            }  
