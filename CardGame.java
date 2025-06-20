@@ -1,18 +1,25 @@
-package cardGame;
+// Madison Bazan
+// 6/18/2025
+// Card game with OOD
+
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections; //new addition for shuffling
 
 public class CardGame {
 
+	//data structures that hold cards
 	private static ArrayList<Card> deckOfCards = new ArrayList<Card>();
 	private static ArrayList<Card> playerCards = new ArrayList<Card>();
 
 
 	public static void main(String[] args) {
 
+		//scanner-input reading
 		Scanner input = null;
 		try {
 			input = new Scanner(new File("cards.txt"));
@@ -22,6 +29,7 @@ public class CardGame {
 			e.printStackTrace();
 		}
 
+		//attempts to read each card and add it to deck
 		while(input.hasNext()) {
 			String[] fields  = input.nextLine().split(",");
 			//	public Card(String cardSuit, String cardName, int cardValue, String cardPicture) {
@@ -29,7 +37,8 @@ public class CardGame {
 					Integer.parseInt(fields[2].trim()), fields[3]);
 			deckOfCards.add(newCard);	
 		}
-
+		
+		//shuffle function cause we're groovy like that
 		shuffle();
 
 		//for(Card c: deckOfCards)
@@ -37,7 +46,7 @@ public class CardGame {
 
 		//deal the player 5 cards
 		for(int i = 0; i < 4; i++) {
-			playerCards.add(deckOfCards.remove(i));
+			playerCards.add(deckOfCards.remove(0));
 		}
 		
 		System.out.println("players cards");
@@ -49,14 +58,9 @@ public class CardGame {
 	}//end main
 
 	public static void shuffle() {
-
-		//shuffling the cards by deleting and reinserting
-		for (int i = 0; i < deckOfCards.size(); i++) {
-			int index = (int) (Math.random()*deckOfCards.size());
-			Card c = deckOfCards.remove(index);
-			//System.out.println("c is " + c + ", index is " + index);
-			deckOfCards.add(c);
-		}
+		// Use Collections.shuffle to shuffle the deck better 
+		//(before it only shuffled heart suit cards)
+		Collections.shuffle(deckOfCards);
 	}
 
 	//check for 2 of a kind in the players hand
